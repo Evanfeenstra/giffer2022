@@ -7,6 +7,7 @@ import Button from "@mui/material/Button";
 function App() {
   const [text, setText] = useState("");
   const [gifs, setGifs] = useState([]);
+  const [planet, setPlanet] = useState("");
 
   // "async" means that you can now use the word
   // "await" within this function!
@@ -18,9 +19,19 @@ function App() {
     setGifs(j.data);
   }
 
+  async function nasaSearch() {
+    const key = "hqzoLXHCqJEtiUXdhJfgMyWUvTPHzLv2EZ8OIMDQ";
+    const url = `https://images-api.nasa.gov/search?q=${text}`;
+    const r = await fetch(url);
+    const j = await r.json();
+    console.log(j);
+    // setPlanet(j.url);
+    setGifs(j.collection.items);
+  }
+
   console.log(gifs);
   return (
-    <div className="App">
+    <div className="App" style={{ background: `url(${planet})` }}>
       <div className="searchbar">
         {/*  "outlined" variant prop gives the nice animation */}
         <TextField
@@ -30,16 +41,17 @@ function App() {
           onChange={(e) => setText(e.target.value)}
           value={text}
           onKeyPress={(e) => {
-            if (e.key === "Enter") search();
+            if (e.key === "Enter") nasaSearch();
           }}
         />
-        <Button variant="outlined" onClick={search} size="large">
+        <Button variant="outlined" onClick={nasaSearch} size="large">
           Search
         </Button>
       </div>
       <div className="gifs">
         {gifs.map((gif, i) => {
-          return <img key={i} src={gif.images.fixed_height.url} />;
+          if (!gif.links) return <span />;
+          return <img key={i} src={gif.links[0].href} />;
         })}
       </div>
     </div>
