@@ -6,6 +6,7 @@ import Button from "@mui/material/Button";
 
 function App() {
   const [text, setText] = useState("");
+  const [gifs, setGifs] = useState([]);
 
   // "async" means that you can now use the word
   // "await" within this function!
@@ -14,9 +15,10 @@ function App() {
     const url = `https://api.giphy.com/v1/gifs/search?api_key=${key}&q=${text}&limit=25&offset=0&lang=en`;
     const r = await fetch(url);
     const j = await r.json();
-    console.log(j);
+    setGifs(j.data);
   }
 
+  console.log(gifs);
   return (
     <div className="App">
       <div className="searchbar">
@@ -34,6 +36,11 @@ function App() {
         <Button variant="outlined" onClick={search} size="large">
           Search
         </Button>
+      </div>
+      <div className="gifs">
+        {gifs.map((gif, i) => {
+          return <img key={i} src={gif.images.fixed_height.url} />;
+        })}
       </div>
     </div>
   );
