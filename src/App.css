@@ -44,3 +44,7 @@
   align-items: center;
   justify-content: center;
 }
+.searchbar button {
+  margin-left: 10px;
+  height: 55px;
+}

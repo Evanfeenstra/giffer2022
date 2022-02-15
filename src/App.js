@@ -2,6 +2,7 @@ import "./App.css";
 // import TextFile from Material UI
 import TextField from "@mui/material/TextField";
 import { useState } from "react";
+import Button from "@mui/material/Button";
 
 function App() {
   const [text, setText] = useState("");
@@ -22,6 +23,9 @@ function App() {
             if (e.key === "Enter") search();
           }}
         />
+        <Button variant="outlined" onClick={search} size="large">
+          Search
+        </Button>
       </div>
     </div>
   );
