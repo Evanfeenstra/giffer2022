@@ -1,23 +1,28 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+// import TextFile from Material UI
+import TextField from "@mui/material/TextField";
+import { useState } from "react";
 
 function App() {
+  const [text, setText] = useState("");
+
+  function search() {}
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div className="searchbar">
+        {/*  "outlined" variant prop gives the nice animation */}
+        <TextField
+          id="search"
+          label="Search"
+          variant="outlined"
+          onChange={(e) => setText(e.target.value)}
+          value={text}
+          onKeyPress={(e) => {
+            if (e.key === "Enter") search();
+          }}
+        />
+      </div>
     </div>
   );
 }
