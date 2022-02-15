@@ -7,7 +7,15 @@ import Button from "@mui/material/Button";
 function App() {
   const [text, setText] = useState("");
 
-  function search() {}
+  // "async" means that you can now use the word
+  // "await" within this function!
+  async function search() {
+    const key = "zT18GDDyLIHam78EfDyGO3yT8Q8IkZZK";
+    const url = `https://api.giphy.com/v1/gifs/search?api_key=${key}&q=${text}&limit=25&offset=0&lang=en`;
+    const r = await fetch(url);
+    const j = await r.json();
+    console.log(j);
+  }
 
   return (
     <div className="App">
