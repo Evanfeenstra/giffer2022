@@ -12,8 +12,7 @@ function App() {
   // "async" means that you can now use the word
   // "await" within this function!
   async function search() {
-    const key = "zT18GDDyLIHam78EfDyGO3yT8Q8IkZZK";
-    const url = `https://api.giphy.com/v1/gifs/search?api_key=${key}&q=${text}&limit=25&offset=0&lang=en`;
+    const url = `/api/gifs?text=${text}`;
     const r = await fetch(url);
     const j = await r.json();
     setGifs(j.data);
@@ -41,17 +40,17 @@ function App() {
           onChange={(e) => setText(e.target.value)}
           value={text}
           onKeyPress={(e) => {
-            if (e.key === "Enter") nasaSearch();
+            if (e.key === "Enter") search();
           }}
         />
-        <Button variant="outlined" onClick={nasaSearch} size="large">
+        <Button variant="outlined" onClick={search} size="large">
           Search
         </Button>
       </div>
       <div className="gifs">
         {gifs.map((gif, i) => {
-          if (!gif.links) return <span />;
-          return <img key={i} src={gif.links[0].href} />;
+          if (!gif.images) return <span />;
+          return <img key={i} src={gif.images.fixed_height.url} />;
         })}
       </div>
     </div>
